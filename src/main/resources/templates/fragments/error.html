@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+	<head>
+    </head>
+    <body>
+    		<nav class="main-header navbar navbar-expand-md navbar-light navbar-white" th:fragment="nav">
+    			<div class="container">
+    				<a th:href="@{/}" class="navbar-brand">
+    					<img th:src="@{/images/logo.png}" class="brand-image" style="opacity: .8"/>
+    					<span class="brand-text font-weight-regular">Kyrie</span>
+    				</a>
+    				<button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    					<span class="navbar-toggler-icon"></span>
+    				</button>
+    			</div>
+    		</nav>
+    		<footer class="main-footer" th:fragment="footer">
+    			<div class="float-right d-none d-sm-inline">
+    				Igreja Nossa Senhora de Guadalupe
+    			</div>
+    			<strong>Copyright &copy; 2024 <a href="">Kyrie</a>.</strong> Todos os direitos reservados.
+    		</footer>
+    </body>
+</html>
