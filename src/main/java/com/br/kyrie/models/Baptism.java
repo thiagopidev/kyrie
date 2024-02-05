@@ -1,0 +1,54 @@
+package com.br.kyrie.models;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Date;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+/**
+ * Classe modelo de definição de batismo
+ * @author Thiago Pinheiro
+**/
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Entity
+@Table(name = "baptisms")
+public class Baptism implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	@EqualsAndHashCode.Include
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(length = 50, nullable = false)
+	private String description;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Column(columnDefinition = "date", nullable = false)
+	private Date date;
+	
+	@Column(name = "opened_registration", columnDefinition = "tinyint(1) default 0", nullable = false)
+	private Boolean openedForRegistration;
+	
+	@CreationTimestamp
+	@Column(columnDefinition = "datetime", nullable = false)
+	private LocalDateTime createdAt;
+	
+	@UpdateTimestamp
+	@Column(columnDefinition = "datetime", nullable = false)
+	private LocalDateTime updatedAt;
+}
