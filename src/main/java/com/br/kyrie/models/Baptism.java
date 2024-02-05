@@ -14,6 +14,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -34,14 +36,16 @@ public class Baptism implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotBlank(message = "Descrição é obrigatória")
 	@Column(length = 50, nullable = false)
 	private String description;
 	
+	@NotNull(message = "Data é obrigatória")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column(columnDefinition = "date", nullable = false)
 	private Date date;
 	
-	@Column(name = "opened_registration", columnDefinition = "tinyint(1) default 0", nullable = false)
+	@Column(name = "opened_registration", columnDefinition = "tinyint(1) default 0")
 	private Boolean openedForRegistration;
 	
 	@CreationTimestamp
