@@ -34,12 +34,15 @@ public class BaptismController {
 	public ModelAndView search() {
 		ModelAndView mv = new ModelAndView("baptisms/search");
 		mv.addObject("baptisms", baptismRepository.findAll());
+		mv.addObject("menu", "baptism");
 		return mv;
 	}
 	
 	@GetMapping("/novo")
 	public ModelAndView create(Baptism baptism) {
-		return new ModelAndView("baptisms/create");
+		ModelAndView mv = new ModelAndView("baptisms/create");
+		mv.addObject("menu", "baptism");
+		return mv;
 	}
 	
 	@PostMapping
@@ -56,6 +59,7 @@ public class BaptismController {
 		if(!invalid)
 			baptism = baptismService.getById(id);
 		mv.addObject("baptism", baptism);
+		mv.addObject("menu", "baptism");
 		return mv;
 	}
 	
