@@ -6,10 +6,14 @@ import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,6 +30,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "baptisms")
 public class Baptism implements Serializable {
 
@@ -55,4 +60,12 @@ public class Baptism implements Serializable {
 	@UpdateTimestamp
 	@Column(columnDefinition = "datetime", nullable = false)
 	private LocalDateTime updatedAt;
+	
+	@CreatedBy
+	@Column(length = 50, nullable = false, updatable = false)
+	private String createdBy;
+	
+	@LastModifiedBy
+	@Column(length = 50, nullable = false)
+	private String updatedBy;
 }
