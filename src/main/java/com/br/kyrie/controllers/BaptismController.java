@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.br.kyrie.exceptions.EntityAlreadyPassedException;
 import com.br.kyrie.models.Baptism;
 import com.br.kyrie.repositories.BaptismRepository;
 import com.br.kyrie.services.BaptismService;
@@ -48,8 +49,13 @@ public class BaptismController {
 	@PostMapping
 	public ModelAndView create(@Valid Baptism baptism, BindingResult result) {
 		if(result.hasErrors())
-			return this.create(baptism);
-		baptismService.persist(baptism);
+			return create(baptism);
+		try {
+			baptismService.persist(baptism);
+		} catch (EntityAlreadyPassedException e) {
+			result.rejectValue("date", e.getMessage(), e.getMessage());
+			return create(baptism);
+		}
 		return new ModelAndView("redirect:/batismo");
 	}
 	
