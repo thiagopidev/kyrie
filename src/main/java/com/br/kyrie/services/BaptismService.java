@@ -4,13 +4,12 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.br.kyrie.exceptions.EntityNotFoundException;
 import com.br.kyrie.exceptions.EntityNotPersistedException;
 import com.br.kyrie.models.Baptism;
 import com.br.kyrie.repositories.BaptismRepository;
-
-import jakarta.transaction.Transactional;
 
 /**
  * Classe de serviço de batismo
