@@ -24,7 +24,6 @@
     						</div>
     						<div class="col-sm-6">
     							<ol class="breadcrumb float-sm-right">
-    								<li class="breadcrumb-item"><a th:href="@{/}">Início</a></li>
     								<li class="breadcrumb-item"><a th:href="@{/batismo}">Batismo</a></li>
     								<li class="breadcrumb-item active">Novo</li>
     							</ol>
@@ -39,7 +38,7 @@
     							<div class="card">
     								<form method="post" th:action="@{/batismo}" th:object="${baptism}" autocomplete="off">
     									<div class="card-header">
-    										<h5 class="card-title m-0">Novo</h5>
+    										<h5 class="card-title m-0"><i class="fa fa-plus fa-sm ico"></i>Novo</h5>
     									</div>
     									<div class="card-body">
     										<div class="alert alert-warning alert-dismissible" th:if="${#fields.hasErrors('*')}">
@@ -51,13 +50,13 @@
     											<div class="col-sm-10">
     												<div class="form-group">
     													<label>Descrição</label>
-    													<input class="form-control input" type="text" th:field="*{description}"/>
+    													<input class="form-control input" type="text" th:field="*{description}" th:classappend="${#fields.hasErrors('description')} ? is-invalid"/>
     												</div>
     											</div>
     											<div class="col-sm-2">
     												<div class="form-group">
     													<label>Data</label>
-    													<input class="form-control input date datepicker" type="text" th:field="*{date}"/>
+    													<input class="form-control input date datepicker" type="text" th:field="*{date}" th:classappend="${#fields.hasErrors('date')} ? is-invalid"/>
     												</div>
     											</div>
     										</div>
@@ -65,7 +64,7 @@
     											<div class="col-sm-3">
     												<div class="form-group">
     													<div class="custom-control custom-checkbox">
-    														<input class="custom-control-input" type="checkbox" id="openedForRegistration" name="openedForRegistration"/>
+    														<input class="custom-control-input" type="checkbox" id="openedForRegistration" name="openedForRegistration" th:field="*{openedForRegistration}"/>
     														<label for="openedForRegistration" class="custom-control-label">Inscrições abertas</label>
     													</div>
     												</div>
