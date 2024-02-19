@@ -6,6 +6,7 @@ import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -41,6 +42,7 @@ public class Baptism implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Length(min = 10, max = 50, message = "Descrição deve possuir entre 10 e 50 caracteres")
 	@NotBlank(message = "Descrição é obrigatória")
 	@Column(length = 50, nullable = false)
 	private String description;
