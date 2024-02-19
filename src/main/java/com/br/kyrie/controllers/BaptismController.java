@@ -1,6 +1,5 @@
 package com.br.kyrie.controllers;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -73,9 +72,14 @@ public class BaptismController {
 	public ModelAndView update(@Valid Baptism baptism, BindingResult result) {
 		if(result.hasErrors())
 			return update(baptism.getId(), baptism, true);
-		Baptism persistedBaptism = baptismService.getById(baptism.getId());
-		BeanUtils.copyProperties(baptism, persistedBaptism, "id", "createdAt");
-		baptismService.persist(persistedBaptism);
+		Baptism oldBaptism = baptismService.getById(baptism.getId());
+		baptism.setCreatedAt(oldBaptism.getCreatedAt());
+		try {
+			baptismService.persist(baptism);
+		} catch (EntityAlreadyPassedException e) {
+			result.rejectValue("date", e.getMessage(), e.getMessage());
+			return update(baptism.getId(), baptism, true);
+		}
 		return new ModelAndView("redirect:/batismo");
 	}
 	
