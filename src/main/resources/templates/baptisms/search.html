@@ -25,7 +25,6 @@
     						</div>
     						<div class="col-sm-6">
     							<ol class="breadcrumb float-sm-right">
-    								<li class="breadcrumb-item"><a th:href="@{/}">Início</a></li>
     								<li class="breadcrumb-item"><a th:href="@{/batismo}">Batismo</a></li>
     								<li class="breadcrumb-item active">Pesquisar</li>
     							</ol>
@@ -47,16 +46,20 @@
     											<tr>
     												<th>Descrição</th>
     												<th>Data</th>
+    												<th>Situação</th>
     												<th>Ação</th>
     											</tr>
     										</thead>
     										<tbody>
     											<tr th:each="baptism : ${baptisms}">
-    												<td th:text="${baptism.description}"></td>
-    												<td th:text="${#dates.format(baptism.date, 'dd/MM/yyyy')}"></td>
+    												<td th:text="${baptism.getDescription()}"></td>
+    												<td th:text="${#dates.format(baptism.getDate(), 'dd/MM/yyyy')}"></td>
+    												<td th:if="${#dates.createNow().after(baptism.getDate())}">BATISMO REALIZADO</td>
+    												<td th:if="${#dates.createNow().before(baptism.getDate()) and baptism.getOpenedForRegistration()}">INSCRIÇÕES ABERTAS</td>
+    												<td th:if="${#dates.createNow().before(baptism.getDate()) and not baptism.getOpenedForRegistration()}">INSCRIÇÕES FECHADAS</td>
     												<td>
     													<a th:href="@{/batismo/{id}/editar(id=${baptism.id})}" title="Editar" class=""><i class="fa fa-edit ico-grid ico-edit"></i></a>
-    													<a th:href="@{/}" class="" title="Excluir" data-toggle="modal" data-target="#delete" data-whateverasking="Você confirma a exclusão do " th:data-whateveritem="${baptism.description}" th:data-whateveraction="@{/batismo/{id}/excluir(id=${baptism.id})}" ><i class="fa fa-trash ico-grid ico-delete"></i></a>
+    													<a th:href="@{/}" title="Excluir" class="" data-toggle="modal" data-target="#delete" data-whateverasking="Você confirma a exclusão do " th:data-whateveritem="${baptism.description}" th:data-whateveraction="@{/batismo/{id}/excluir(id=${baptism.id})}" ><i class="fa fa-trash ico-grid ico-delete"></i></a>
     												</td>
     											</tr>
     										</tbody>
@@ -64,6 +67,7 @@
     											<tr>
     												<th>Descrição</th>
     												<th>Data</th>
+    												<th>Situação</th>
     												<th>Ação</th>
     											</tr>
     										</tfoot>
