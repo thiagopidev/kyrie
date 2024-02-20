@@ -51,13 +51,13 @@
     											<div class="col-sm-10">
     												<div class="form-group">
     													<label>Descrição</label>
-    													<input class="form-control input" type="text" th:field="*{description}" th:classappend="${#fields.hasErrors('description')} ? is-invalid"/>
+    													<input class="form-control input" type="text" th:field="*{description}" th:classappend="${#fields.hasErrors('description')} ? is-invalid" th:readonly="${baptism.getDate.before(#dates.createNow())}"/>
     												</div>
     											</div>
     											<div class="col-sm-2">
     												<div class="form-group">
     													<label>Data</label>
-    													<input class="form-control input date datepicker" type="text" th:field="*{date}" th:classappend="${#fields.hasErrors('date')} ? is-invalid"/>
+    													<input class="form-control input date datepicker" type="text" th:field="*{date}" th:classappend="${#fields.hasErrors('date')} ? is-invalid" th:readonly="${baptism.getDate.before(#dates.createNow())}"/>
     												</div>
     											</div>
     										</div>
@@ -65,7 +65,7 @@
     											<div class="col-sm-3">
     												<div class="form-group">
     													<div class="custom-control custom-checkbox">
-    														<input class="custom-control-input" type="checkbox" id="openedForRegistration" th:field="*{openedForRegistration}"/>
+    														<input class="custom-control-input" type="checkbox" id="openedForRegistration" th:field="*{openedForRegistration}" th:disabled="${baptism.getDate.before(#dates.createNow())}"/>
     														<label for="openedForRegistration" class="custom-control-label">Inscrições abertas</label>
     													</div>
     												</div>
@@ -74,7 +74,7 @@
     									</div>
     									<div class="card-footer">
     										<a th:href="@{/batismo}" class="btn btn-danger btn-regular"><i class="fa fa-arrow-left fa-sm ico"></i>Voltar</a>
-                                            <button type="submit" class="btn btn-primary btn-regular"><i class="fa fa-save fa-sm ico"></i>Salvar</button>
+                                            <button type="submit" class="btn btn-primary btn-regular" th:if="${baptism.getDate.after(#dates.createNow())}"><i class="fa fa-save fa-sm ico"></i>Salvar</button>
     									</div>
     								</form>
     							</div>
