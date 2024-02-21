@@ -40,6 +40,8 @@ public class BaptismService {
 	
 	@Transactional
 	public void remove (Baptism baptism) {
-		baptismRepository.deleteById(baptism.getId());
+		if(baptism.getDate().after(new Date())) {
+			baptismRepository.deleteById(baptism.getId());
+		}
 	}
 }
