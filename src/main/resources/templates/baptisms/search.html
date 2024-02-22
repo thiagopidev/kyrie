@@ -58,8 +58,10 @@
     												<td th:if="${#dates.createNow().before(baptism.getDate()) and baptism.getOpenedForRegistration()}">INSCRIÇÕES ABERTAS</td>
     												<td th:if="${#dates.createNow().before(baptism.getDate()) and not baptism.getOpenedForRegistration()}">INSCRIÇÕES FECHADAS</td>
     												<td>
-    													<a th:href="@{/batismo/{id}/editar(id=${baptism.id})}" title="Editar" class=""><i class="fa fa-edit ico-grid ico-edit"></i></a>
-    													<a th:href="@{/}" title="Excluir" class="" data-toggle="modal" data-target="#delete" data-whateverasking="Você confirma a exclusão do " th:data-whateveritem="${baptism.description}" th:data-whateveraction="@{/batismo/{id}/excluir(id=${baptism.id})}" ><i class="fa fa-trash ico-grid ico-delete"></i></a>
+    													<a th:href="@{/batismo/{id}/editar(id=${baptism.id})}" title="Editar" class="" th:if="${baptism.getDate().after(#dates.createNow())}"><i class="fa fa-edit ico-grid ico-edit"></i></a>
+    													<a th:href="@{/batismo}" title="Editar" class="link-disabled" th:if="${baptism.getDate().before(#dates.createNow())}"><i class="fa fa-edit ico-grid ico-disabled"></i></a>
+    													<a th:href="@{/}" title="Excluir" class="" data-toggle="modal" data-target="#delete" data-whateverasking="Você confirma a exclusão do " th:data-whateveritem="${baptism.description}" th:data-whateveraction="@{/batismo/{id}/excluir(id=${baptism.id})}" th:if="${baptism.getDate().after(#dates.createNow())}"><i class="fa fa-trash ico-grid ico-delete"></i></a>
+    													<a th:href="@{/batismo}" title="Excluir" class="link-disabled" th:if="${baptism.getDate().before(#dates.createNow())}"><i class="fa fa-trash ico-grid ico-disabled"></i></a>
     												</td>
     											</tr>
     										</tbody>
